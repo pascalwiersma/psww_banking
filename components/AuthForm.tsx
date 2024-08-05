@@ -13,6 +13,7 @@ import { authFormSchema } from "@/lib/utils";
 import { Form } from "./ui/form";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { getLoggedInUser, signIn, signUp } from "@/lib/actions/user.actions";
 
 const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
     const router = useRouter();
@@ -26,8 +27,8 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
         defaultValues: {
             email: "",
             password: "",
-            firstname: "",
-            lastname: "",
+            firstName: "",
+            lastName: "",
             address1: "",
             city: "",
             state: "",
@@ -42,23 +43,21 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
         
         try {
             if(type === "sign-up") {
-                // Sign up logic
-                // const newUser = await signUp(data);
+                const newUser = await signUp(data);
 
-                // setUser(newUser);
+                setUser(newUser);
 
             }
 
             if(type === "sign-in") {
                 // Sign in logic
-                // const response = await signIn({
-                //     email: data.email,
-                //     password: data.password
-                // });
+                const response = await signIn({
+                    email: data.email,
+                    password: data.password
+                });
                 
-                // if (response) router.push("/");
-
-
+                if (response) router.push("/");
+                
             }
         } catch (error) {
             console.error(error);
@@ -113,13 +112,13 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
                                     <div className="flex flex-col gap-4 md:flex-row md:gap-4">
                                         <CustomInput
                                             control={form.control}
-                                            name="firstname"
+                                            name="firstName"
                                             label="Voornaam"
                                             placeholder="Voer je voornaam in."
                                         />
                                         <CustomInput
                                             control={form.control}
-                                            name="lastname"
+                                            name="lastName"
                                             label="Achternaam"
                                             placeholder="Voer je achternaam in."
                                         />
