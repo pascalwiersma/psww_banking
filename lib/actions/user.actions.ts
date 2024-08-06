@@ -106,7 +106,6 @@ export async function getLoggedInUser() {
 
         return parseStringify(user);
     } catch (error) {
-        console.error(error);
         return null;
     }
 }
@@ -129,7 +128,7 @@ export const createBankAccount = async ({
     accountId,
     accessToken,
     fundingSourceUrl,
-    sharableId,
+    shareableId,
 }: createBankAccountProps) => {
     try {
         const { database } = await createAdminClient();
@@ -144,7 +143,7 @@ export const createBankAccount = async ({
                 accountId,
                 accessToken,
                 fundingSourceUrl,
-                sharableId,
+                shareableId,
             }
         );
 
@@ -164,7 +163,7 @@ export const createLinkToken = async (user: User) => {
             client_name: `${user.firstName} ${user.lastName}`,
             products: ["auth"] as Products[],
             language: "en",
-            country_codes: ["NL"] as CountryCode[],
+            country_codes: ["US"] as CountryCode[],
         };
 
         const response = await plaidClient.linkTokenCreate(tokenParams);
@@ -226,7 +225,7 @@ export const exchangePublicToken = async ({
             accountId: accountData.account_id,
             accessToken,
             fundingSourceUrl,
-            sharableId: encryptId(accountData.account_id),
+            shareableId: encryptId(accountData.account_id),
         });
 
         // Revalidate the path to reflect the changes

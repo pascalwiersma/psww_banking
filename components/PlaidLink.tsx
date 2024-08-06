@@ -32,7 +32,7 @@ const PlaidLink = ({
 
         router.push('/')
 
-    }, [user])
+    }, [user, router])
 
     const config: PlaidLinkOptions = {
         token,
